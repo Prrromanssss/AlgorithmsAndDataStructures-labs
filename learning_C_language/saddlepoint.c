@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <limits.h>
 
 bool is_contains(int elem, int array[], size_t length)
 {
@@ -15,8 +16,7 @@ bool is_contains(int elem, int array[], size_t length)
 int main() {
     int row, column;
     scanf("%d %d", &row, &column);
-    int array[row][column];
-    int transpose_array[column][row];
+    int array[10][10];
     int max_rows[row];
     int min_columns[column];
 
@@ -26,35 +26,21 @@ int main() {
         }
     }
 
-    for(int i = 0; i < row; i++) {
-        int max_elem_in_row = 0;
+    for(int i = 0; i < row; ++i)
+		max_rows[i] = INT_MIN;
 
+	for(int i = 0; i < column; i++)
+		min_columns[i] = INT_MAX;
+
+    for(int i = 0; i < row; i++) {
         for(int j = 0; j < column; j++) {
             int current_elem = array[i][j];
 
-            if(current_elem > max_elem_in_row) {
-                max_elem_in_row = current_elem;
-            }
+            max_rows[i] = (max_rows[i] < current_elem) ?
+                           current_elem : max_rows[i];
+			min_columns[j] = (min_columns[j] > current_elem) ?
+                              current_elem : min_columns[j];
         }
-        max_rows[i] = max_elem_in_row;
-    }
-
-    for (int i = 0; i < column; i++) {
-        for (int j = 0; j < row; j++)
-            transpose_array[i][j] = array[j][i];
-    }
-
-    for(int i = 0; i < column; i++) {
-        int min_elem_in_column = 9999999;
-
-        for(int j = 0; j < row; j++) {
-            int current_elem = transpose_array[i][j];
-
-            if(current_elem < min_elem_in_column) {
-                min_elem_in_column = current_elem;
-            }
-        }
-        min_columns[i] = min_elem_in_column;
     }
 
     int saddlepoint = 0;
