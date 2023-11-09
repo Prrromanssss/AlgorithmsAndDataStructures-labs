@@ -1,3 +1,16 @@
+#include <stdio.h>
+#define SIZE 10
+
+int arr[] = {1, 2, 3, 4, 3, 5, 6, 3, 7, 6};
+
+
+int less(unsigned long i, unsigned long j)
+{
+    if(arr[i] < arr[j]) return 1;
+    return 0;
+}
+
+
 unsigned long peak(unsigned long nel,
         int(*less)(unsigned long i, unsigned long j))
 {
@@ -10,4 +23,10 @@ unsigned long peak(unsigned long nel,
     }
 
     return -1;
+}
+
+int main()
+{
+    printf("%lu\n", peak(SIZE, less));
+    return 0;
 }

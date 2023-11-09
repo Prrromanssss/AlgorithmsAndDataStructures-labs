@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+int scan_array(int arr[], int n)
+{
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    return *arr;
+}
+
 void revarray(void *base, size_t nel, size_t width)
 {
     char *temp_pointer = malloc(width);
@@ -12,5 +20,20 @@ void revarray(void *base, size_t nel, size_t width)
         memcpy(right, temp_pointer, width);
     }
     free(temp_pointer);
+}
+
+void print_array(int arr[], int n)
+{
+    for(int i = 0; i < n; i++) printf("%d ", arr[i]);
+}
+
+int main()
+{
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+    *arr = scan_array(arr, n);
+    revarray(arr, n, sizeof(int));
+    print_array(arr, n);
 
 }

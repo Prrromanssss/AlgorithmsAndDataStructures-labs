@@ -16,4 +16,5 @@ int main() {
     }
 
     printf("Pn(x0) = %d, P`n(x0) = %d", px0, pdx0);
+    return 0;
 }
