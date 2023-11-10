@@ -22,11 +22,6 @@ void revarray(void *base, size_t nel, size_t width)
     free(temp_pointer);
 }
 
-void print_array(int arr[], int n)
-{
-    for(int i = 0; i < n; i++) printf("%d ", arr[i]);
-}
-
 int main()
 {
     int n;
@@ -34,6 +29,6 @@ int main()
     int arr[n];
     *arr = scan_array(arr, n);
     revarray(arr, n, sizeof(int));
-    print_array(arr, n);
+    for(int i = 0; i < n; i++) printf("%d ", arr[i]);
 
 }
