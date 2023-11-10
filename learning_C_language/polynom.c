@@ -15,6 +15,6 @@ int main() {
         if(i != n - 1) pdx0 *= x0;
     }
 
-    printf("Pn(x0) = %d, P`n(x0) = %d", px0, pdx0);
+    printf("%d %d", px0, pdx0);
     return 0;
 }
