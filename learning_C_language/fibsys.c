@@ -1,50 +1,86 @@
 #include <stdio.h>
 
 
-int fibonacci_number(int n)
+typedef unsigned long long big_size;
+
+
+int fibonacci_number(big_size n)
 {
     int number = 1;
-    int fib0 = 1, fib1 = 1;
-    if(n != 0) {
-        while(fib1 != n) {
-            fib1 += fib0;
-            fib0 = fib1 - fib0;
-            number += 1;
-        }
-    } else {
-        number = 1;
+    big_size fib0 = 1, fib1 = 1;
+    if(n == 0) return 1;
+    while(fib1 != n) {
+        fib1 += fib0;
+        fib0 = fib1 - fib0;
+        number += 1;
     }
     return number;
 }
 
 
-int main()
+int amount_units_by_zeckendorf_sum(big_size x)
 {
-    int x;
-    scanf("%d", &x);
-    int array[x];
     int i = 0;
     while(x > 0) {
-        int fib1 = 0, fib2 = 1;
-        while(fib2 < x) {
-            fib2 += fib1;
-            fib1 = fib2 - fib1;
+        big_size fib0 = 1, fib1 = 1;
+        while(fib1 < x) {
+            fib1 += fib0;
+            fib0 = fib1 - fib0;
         }
-        array[i] = fib2 == x ? fib2 : fib1;
-        x -= fib2 == x ? fib2 : fib1;
+        x -= fib1 == x ? fib1 : fib0;
         i++;
     }
-    int one_in_fns[i];
-    for(int j = 0; j < i; j++) {
-        one_in_fns[j] = fibonacci_number(array[j]);
+    return i;
+}
+
+void from_zec_sum_to_fib_number(big_size x, int res[], int length)
+{
+    int j = 0;
+    while(x > 0) {
+        big_size fib0 = 1, fib1 = 1;
+        while(fib1 < x) {
+            fib1 += fib0;
+            fib0 = fib1 - fib0;
+        }
+        if(j < length) {
+            res[j] = fibonacci_number(fib1 == x ? fib1 : fib0);
+            j++;
+        }
+        x -= fib1 == x ? fib1 : fib0;
     }
-    int another_j = 0;
-    for(int j = one_in_fns[0]; j > 0; j--) {
-        if(one_in_fns[another_j] == j) {
+}
+
+
+void print_digit_in_fns(int units_in_fns[], size_t length)
+{
+    int units_counter = 0;
+    for(int j = units_in_fns[0]; j > 0; j--) {
+        if(units_counter < length && units_in_fns[units_counter] == j) {
             printf("%d", 1);
-            another_j++;
+            units_counter++;
         }
         else printf("%d", 0);
     }
+}
+
+
+int main()
+{
+    big_size x;
+    scanf("%lld", &x);
+    if(x == 0) {
+        printf("0");
+        return 0;
+    }
+
+    // count amount of units in fns using zeckendorf sum
+    int amount_of_zeckendorf_sum = amount_units_by_zeckendorf_sum(x);
+    int units_in_fns[amount_of_zeckendorf_sum];
+
+    // converting number from zeckendorf sum to its fibonacci number
+    from_zec_sum_to_fib_number(x, units_in_fns, amount_of_zeckendorf_sum);
+
+    // built given digit in fns
+    print_digit_in_fns(units_in_fns, amount_of_zeckendorf_sum);
     return 0;
 }

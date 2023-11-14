@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <math.h>
-#include <stdlib.h>
 
 long long calculate_px0(long long arr[], long long length, long long x0)
 {
