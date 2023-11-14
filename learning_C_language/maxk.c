@@ -25,7 +25,8 @@ int found_max_sum_k(int array[], int length, int start)
 }
 
 
-int main() {
+int main()
+{
     int n, k;
     scanf("%d", &n);
     int array[n];

@@ -23,7 +23,8 @@ long long calculate_pdx0(long long arr[], long long length, long long x0)
 }
 
 
-int main() {
+int main()
+{
     long long n, x0;
     scanf("%lld %lld", &n, &x0);
     long long arr[n + 1];

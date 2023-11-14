@@ -18,7 +18,8 @@ unsigned long long mulmod(unsigned long long a, unsigned long long b, unsigned l
     return res;
 }
 
-int main() {
+int main()
+{
     unsigned long long a, b, m;
     scanf("%lld %lld %lld", &a, &b, &m);
     printf("%lld", mulmod(a, b, m));

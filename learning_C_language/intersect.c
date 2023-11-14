@@ -12,7 +12,8 @@ void dec2bin(unsigned long num)
     }
 }
 
-unsigned long set_input() {
+unsigned long set_input()
+{
     int len;
     scanf("%d", &len);
     unsigned long set = 0;
@@ -25,7 +26,8 @@ unsigned long set_input() {
 }
 
 
-int main() {
+int main()
+{
     unsigned long a = set_input();
     unsigned long b = set_input();
     unsigned long res = a & b;
