@@ -4,14 +4,6 @@
 int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int aim = 6;
 
-int compare(unsigned long i)
-{
-    if(arr[i] < aim) return -1;
-    if(arr[i] > aim) return 1;
-    return 0;
-}
-
-
 int scan_array(int arr[], int n)
 {
     for(int i = 0; i < n; i++) {
@@ -19,6 +11,14 @@ int scan_array(int arr[], int n)
     }
     return *arr;
 }
+
+int compare(unsigned long i)
+{
+    if(arr[i] < aim) return -1;
+    if(arr[i] > aim) return 1;
+    return 0;
+}
+
 
 unsigned long binsearch(unsigned long nel, int(*compare)(unsigned long i))
 {   

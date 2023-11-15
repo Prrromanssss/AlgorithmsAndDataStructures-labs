@@ -14,7 +14,7 @@ int less(unsigned long i, unsigned long j)
 unsigned long peak(unsigned long nel,
         int(*less)(unsigned long i, unsigned long j))
 {
-    if(nel == 1) return 1;
+    if(nel == 1) return 0;
     if(!less(0, 1)) return 0;
     if(!less(nel - 1, nel - 2)) return nel - 1;
 

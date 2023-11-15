@@ -26,7 +26,6 @@ bool permut(int a[], int b[], int start, int end, size_t length, int *is_same)
 			permut(a, b, start + 1, end, length, is_same);
 			swap((a + start), (a + i));
 		}
-
 	}
     if (*is_same) return true;
         return false;
@@ -38,7 +37,7 @@ int main()
     int* p = &is_same;
     int n = 8;
     int nums1[n], nums2[n];
-	
+
 	// scanning arrays
 	for(int i = 0; i < n; i++) scanf("%d", &nums1[i]);
     for(int i = 0; i < n; i++) scanf("%d", &nums2[i]);
