@@ -9,7 +9,7 @@ int maxarray(void *base, size_t nel, size_t width,
     uint8_t *p_max_elem = malloc(width);
     uint8_t *elem = base;
     int max_index = 0;
-    memcpy(p_max_elem, base, width);
+    memcpy(p_max_elem, elem, width);
     for(int i = 1; i < nel; i++) {
         elem += width;
         int res = compare(elem, p_max_elem);
