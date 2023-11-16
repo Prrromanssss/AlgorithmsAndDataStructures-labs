@@ -109,7 +109,7 @@ bool is_max_1_2_3_divisors_prime(long* max_divisor, long* max_second_divisor, lo
 int main()
 {
     long n;
-    // Scanning number and make it positive
+    // Scanning number and making it positive
     n = input(n);
 
     // Size of Eratosthene sieve(n)
