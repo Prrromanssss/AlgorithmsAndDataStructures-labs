@@ -1,2 +1,2 @@
 # AlgorithmsAndDataStructures-labs
-Laboratory work for the Algorithms and data structures for MSTU
+Laboratory works for the Algorithms and data structures for MSTU
