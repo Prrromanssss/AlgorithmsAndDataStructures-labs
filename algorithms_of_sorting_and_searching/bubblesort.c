@@ -31,22 +31,25 @@ void bubblesort(unsigned long nel,
         int (*compare)(unsigned long i, unsigned long j),
         void (*swap)(unsigned long i, unsigned long j))
 {
-        for(unsigned long i = 0; i < nel; i++) {
+        int left = 0;
+        int right = nel - 1;
+        while(left <= right) {
             // left -> right
-            for(unsigned long j = i + 1; j < nel; j++) {
-                int res = compare(j, j - 1);
+            for(int j = left; j < right; j++) {
+                int res = compare(j + 1, j);
                 if(res == -1) {
-                    swap(j, j - 1);
+                    swap(j + 1, j);
                 }
             }
-            nel--;
+            right--;
             // right -> left
-            for(unsigned long k = nel - 1; k > i; k--) {
+            for(int k = right; k > left; k--) {
                 int res = compare(k, k - 1);
                 if(res == -1) {
                     swap(k, k - 1);
                 }
             }
+            left++;
         }
 }
 
@@ -57,7 +60,7 @@ void print_array(int arr[], int n)
 
 int main()
 {
-    int n;
+    int n = 1;
     scanf("%d", &n);
 
     arr = (int*)malloc(n * sizeof(int));
