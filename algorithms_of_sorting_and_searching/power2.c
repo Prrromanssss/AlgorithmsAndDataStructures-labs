@@ -27,27 +27,14 @@ int scan_array(int arr[], int n, int* count)
 }
 
 
-void combination_with_repetition(int arr[],
-                int index, int r, int start, int end, int* count, int sum)
+void count_of_power2(int arr[], size_t length, int index, int sum, int *count)
 {
-    if (index == r) {
+    if(index == length) {
         increase_count_of_power2(sum, count);
         return;
     }
-
-    for(int i = start + 1; i <= end + 1; i++) {
-        combination_with_repetition(arr, index + 1, r, i, end, count, sum + arr[i - 1]);
-    }
-    return;
-}
-
-
-int count_of_power2(int arr[], int n, int *count)
-{
-    for(int r = 2; r < n; r++) {
-        combination_with_repetition(arr, 0, r, 0, n-1, count, 0);
-    }
-    return *count;
+    count_of_power2(arr, length, index + 1, sum, count);
+    count_of_power2(arr, length, index + 1, sum + arr[index], count);
 }
 
 
@@ -57,6 +44,7 @@ int main()
     scanf("%d", &n);
     int arr[n];
     *arr = scan_array(arr, n, &count);
-    printf("%d\n", count_of_power2(arr, n, &count));
+    count_of_power2(arr, n, 0, 0, &count);
+    printf("%d\n", count);
     return 0;
 }
