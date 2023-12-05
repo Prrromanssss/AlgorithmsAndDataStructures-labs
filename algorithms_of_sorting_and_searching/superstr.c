@@ -34,7 +34,7 @@ void scan_array_of_strings(char **words, size_t length)
 
 void swap(char **words, int indexes[], int i, int j) 
 {
-	char *temp = words[i];
+    char *temp = words[i];
     words[i] = words[j];
     words[j] = temp;
 
