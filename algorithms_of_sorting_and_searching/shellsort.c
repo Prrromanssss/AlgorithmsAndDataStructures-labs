@@ -77,7 +77,3 @@ int main()
     print_array(arr, n);
     return 0;
 }
-
-
-
-
