@@ -6,17 +6,17 @@
 
 void revarray(void *base, size_t nel, size_t width)
 {
-    uint8_t *temp_pointer = malloc(width);
+    uint8_t *auxiliary_pointer_foк_swapping_left_right = malloc(width);
     uint8_t *left = base, *right = base;
     right += (nel - 1) * width;
     for(int i = 0; i < nel / 2; i++) {
-        memcpy(temp_pointer, left,  width);
+        memcpy(auxiliary_pointer_foк_swapping_left_right, left,  width);
         memcpy(left, right, width);
-        memcpy(right, temp_pointer, width);
+        memcpy(right, auxiliary_pointer_foк_swapping_left_right, width);
         left += width;
         right -= width;
     }
-    free(temp_pointer);
+    free(auxiliary_pointer_foк_swapping_left_right);
 }
 
 int scan_array(int arr[], int n)

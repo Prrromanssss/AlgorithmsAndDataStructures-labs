@@ -22,18 +22,18 @@ int compare(unsigned long i)
 
 unsigned long binsearch(unsigned long nel, int(*compare)(unsigned long i))
 {   
-    int M;
-    int L = -1;
-    int R = nel;
-    while(R - L > 1) {
-        M = (R + L) / 2;
-        int temp = compare(M);
-        if(temp == -1)
-            L = M;
-        if(temp == 0)
-            return M;
-        if(temp == 1)
-            R = M;
+    int mid;
+    int left = -1;
+    int right = nel;
+    while(right - left > 1) {
+        mid = (right + left) / 2;
+        int res = compare(mid);
+        if(res == -1)
+            left = mid;
+        if(res == 0)
+            return mid;
+        if(res == 1)
+            right = mid;
     }
     return nel;
 }
