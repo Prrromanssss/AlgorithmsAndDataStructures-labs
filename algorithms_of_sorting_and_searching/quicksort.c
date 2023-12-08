@@ -22,14 +22,14 @@ void print_array(int arr[], int n)
 
 void swap(void *base, unsigned int i, unsigned int j, size_t width)
 {
-    uint8_t *auxiliary_pointer_foк_swapping_left_right = malloc(width);
+    uint8_t *auxiliary_pointer_for_swapping_left_right = malloc(width);
     uint8_t *left = base, *right = base;
     left += i * width;
     right += j * width;
-    memcpy(auxiliary_pointer_foк_swapping_left_right, left, width);
+    memcpy(auxiliary_pointer_for_swapping_left_right, left, width);
     memcpy(left, right, width);
-    memcpy(right, auxiliary_pointer_foк_swapping_left_right, width);
-    free(auxiliary_pointer_foк_swapping_left_right);
+    memcpy(right, auxiliary_pointer_for_swapping_left_right, width);
+    free(auxiliary_pointer_for_swapping_left_right);
 }
 
 
