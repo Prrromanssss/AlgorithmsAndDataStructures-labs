@@ -135,7 +135,9 @@ int main()
     printf("%d\n", min);
 
     // Clearing the memory
-    for(int i = 0; i < n; i++) free(words[i]);
+    for(int i = 0; i < n; i++) {
+        free(words[i]);
+    }
     free(words);
 
 	return 0;
