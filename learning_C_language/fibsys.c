@@ -33,6 +33,7 @@ int amount_units_by_zeckendorf_sum(big_size x)
     return i;
 }
 
+
 void from_zec_sum_to_fib_number(big_size x, int res[], int length)
 {
     int j = 0;

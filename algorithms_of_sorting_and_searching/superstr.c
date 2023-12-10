@@ -8,6 +8,7 @@
 #define BUFFER_SIZE 10000
 #define MAX_SIZE 10 // Maximum number of elements in the 2-d array
 
+
 char keys[MAX_SIZE][MAX_SIZE] = {}; // Array to store the keys 
 
 

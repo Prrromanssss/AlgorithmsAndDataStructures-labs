@@ -4,6 +4,7 @@
 int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 int aim = 6;
 
+
 int scan_array(int arr[], int n)
 {
     for(int i = 0; i < n; i++) {
@@ -11,6 +12,7 @@ int scan_array(int arr[], int n)
     }
     return *arr;
 }
+
 
 int compare(unsigned long i)
 {

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+
 void dec2bin(unsigned long num)
 {
     int bin = 0, i = 0;
@@ -11,6 +12,7 @@ void dec2bin(unsigned long num)
         num /= 2;
     }
 }
+
 
 unsigned long set_input()
 {

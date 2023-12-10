@@ -25,6 +25,7 @@ unsigned long peak(unsigned long nel,
     return -1;
 }
 
+
 int main()
 {
     printf("%lu\n", peak(SIZE, less));

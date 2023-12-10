@@ -19,6 +19,7 @@ void revarray(void *base, size_t nel, size_t width)
     free(auxiliary_pointer_for_swapping_left_right);
 }
 
+
 int scan_array(int arr[], int n)
 {
     for(int i = 0; i < n; i++) {
@@ -26,6 +27,7 @@ int scan_array(int arr[], int n)
     }
     return *arr;
 }
+
 
 int main()
 {

@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 unsigned long long mulmod(unsigned long long a, unsigned long long b, unsigned long long m)
 {
     unsigned long long bin[64];
@@ -17,6 +18,7 @@ unsigned long long mulmod(unsigned long long a, unsigned long long b, unsigned l
     }
     return res;
 }
+
 
 int main()
 {

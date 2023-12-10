@@ -22,6 +22,7 @@ char *concat(char **s, int n)
     return new_string;
 }
 
+
 void scan_strings(char **words, size_t length)
 {
     for(int i = 0; i < length; i++) {
@@ -52,6 +53,5 @@ int main()
     for(int i = 0; i < n; i++) free(words[i]);
     free(words);
     free(concat_string);
-
     return 0;
 }

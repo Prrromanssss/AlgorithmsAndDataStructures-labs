@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+
 long long calculate_px0(long long arr[], long long length, long long x0)
 {
     long long px0 = arr[0];
@@ -9,6 +10,7 @@ long long calculate_px0(long long arr[], long long length, long long x0)
     }
     return px0;
 }
+
 
 long long calculate_pdx0(long long arr[], long long length, long long x0)
 {

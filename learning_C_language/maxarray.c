@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdint.h>
 
+
 int maxarray(void *base, size_t nel, size_t width,
         int(*compare)(void *a, void *b))
 {
@@ -22,6 +23,7 @@ int maxarray(void *base, size_t nel, size_t width,
     return max_index;
 }
 
+
 int scan_array(int arr[], int n)
 {
     for(int i = 0; i < n; i++) {
@@ -29,6 +31,7 @@ int scan_array(int arr[], int n)
     }
     return *arr;
 }
+
 
 int compare(void *a, void *b)
 {
@@ -38,6 +41,7 @@ int compare(void *a, void *b)
 		return -1;
 	return 0;
 }
+
 
 int main()
 {
