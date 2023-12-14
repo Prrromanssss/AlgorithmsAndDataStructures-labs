@@ -90,4 +90,5 @@ int main()
     quick_sort(arr, 0, n - 1, m);
 
     print_array(arr, n);
+    return 0;
 }
