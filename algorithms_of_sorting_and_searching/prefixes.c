@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 {
     if(argc != 2) {
         printf("Usage: kmpall <string>\n");
-        return 0;
+        return 1;
     }
     str_l str;
     init_strings(&str, argv[1]);

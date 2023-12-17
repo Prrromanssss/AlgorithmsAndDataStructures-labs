@@ -83,17 +83,17 @@ void delta2(str_l s, int d2[])
 }
 
 
-void bm_subst(str_l s, int size, str_l t)
+void bm_subst(str_l substr, int size, str_l source)
 {
     int d1[size];
-    delta1(s, size, d1);
-    int d2[s.length];
-    delta2(s, d2);
-    int k = s.length - 1;
+    delta1(substr, size, d1);
+    int d2[substr.length];
+    delta2(substr, d2);
+    int k = substr.length - 1;
     int i;
-    while(k < t.length) {
-        i = s.length - 1;
-        while(t.data[k] == s.data[i]) {
+    while(k < source.length) {
+        i = substr.length - 1;
+        while(source.data[k] == substr.data[i]) {
             if(i == 0) {
                 printf("%d\n", k);
                 break;
@@ -101,7 +101,7 @@ void bm_subst(str_l s, int size, str_l t)
             i--;
             k--;
         }
-        k = k + max(d1[t.data[k]], d2[i]);
+        k = k + max(d1[source.data[k]], d2[i]);
     }    
 }
 
@@ -110,7 +110,7 @@ int main(int argc, char **argv)
 {
     if(argc != 3) {
         printf("Usage: bmall <substring(S)> <string(T)>\n");
-        return 0;
+        return 1;
     }
     str_l substr, str;
     init_strings(&substr, &str, argv[1], argv[2]);

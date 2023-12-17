@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 {
     if(argc != 3) {
         printf("Usage: kmpall <substring(S)> <string(T)>\n");
-        return 0;
+        return 1;
     }
     str_l substr, str;
     init_strings(&substr, &str, argv[1], argv[2]);

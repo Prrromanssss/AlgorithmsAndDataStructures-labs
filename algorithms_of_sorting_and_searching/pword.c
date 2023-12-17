@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 {
     if(argc != 3) {
         printf("Usage: pword <string(S)> <string(T)>\n");
-        return 0;
+        return 1;
     }
     str_l str_s, str_t;
     init_strings(&str_s, &str_t, argv[1], argv[2]);

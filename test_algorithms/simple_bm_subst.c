@@ -42,10 +42,7 @@ int simple_bm_subst(str_l s, int size, str_l t)
         }
         k = k + max(d1[t.data[k]], s.length - i);
     }
-
     return t.length;
-
-    
 }
 
 
