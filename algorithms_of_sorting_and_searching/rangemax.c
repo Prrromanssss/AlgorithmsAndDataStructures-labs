@@ -4,7 +4,7 @@
 #include <string.h>
 
 
-#define BUFFER_SIZE 20
+#define BUFFER_SIZE 5
 
 
 int max(int a, int b)
@@ -78,14 +78,6 @@ void segment_tree_update(int j, int new_value, int length, int tree[])
 }
 
 
-void init_tree(int tree[], size_t length)
-{
-    for(int i = 0; i < 4 * length; i++) {
-        tree[i] = 0;
-    }
-}
-
-
 void scan_segment(int segment[], size_t length)
 {
     for(int i = 0; i < length; i++) {
@@ -118,7 +110,6 @@ int main()
     int n;
     scanf("%d", &n);
     int *tree = calloc(4 * n, sizeof(int));
-    init_tree(tree, n);
 
     int *segment = calloc(n, sizeof(int));
     scan_segment(segment, n);
