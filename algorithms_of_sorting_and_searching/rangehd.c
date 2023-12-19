@@ -40,7 +40,7 @@ int build(int tree[], char *segment, int left, int right, int length)
     }
     if(right < length)
     {
-        sum ^= (1 << (segment[right] -'a'));
+        sum ^= (1 << (segment[right] - 'a'));
         tree[right] = sum;
     }
 
