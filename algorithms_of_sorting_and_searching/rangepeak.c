@@ -84,10 +84,28 @@ void update_peak(int peak[], int segment[], int i, size_t length)
                 peak[j] = 0;
             }
         }
+    } else if(i == 1) {
+        for(int j = i - 1; j < i + 1; j++) {
+            if((j == i - 1 || segment[j] >= segment[j - 1]) &&
+               segment[j] >= segment[j + 1]) {
+                peak[j] = 1;
+            } else {
+                peak[j] = 0;
+            }
+        }
     } else if(i == length - 1) {
         for(int j = i - 1; j < i + 1; j++) {
             if(segment[j] >= segment[j - 1] &&
                (j == i || segment[j] >= segment[j + 1])) {
+                peak[j] = 1;
+            } else {
+                peak[j] = 0;
+            }
+        }
+    } else if(i == length - 2) {
+        for(int j = i - 1; j < i + 2; j++) {
+            if(segment[j] >= segment[j - 1] &&
+               (j == i + 1 || segment[j] >= segment[j + 1])) {
                 peak[j] = 1;
             } else {
                 peak[j] = 0;
@@ -144,34 +162,32 @@ void fenwick_tree_update(int tree[], int segment[], int peak[], int i, int new_v
 
 // Functions to work with input data
 
-void scan_segment(int segment[], size_t length, FILE *fp)
+void scan_segment(int segment[], size_t length)
 {
     for(int i = 0; i < length; i++) {
-        fscanf(fp, "%d", &segment[i]);
+        scanf("%d", &segment[i]);
     }
 }
 
 
-void scan_queries(int tree[], int segment[], int peak[], size_t length, FILE *fp)
+void scan_queries(int tree[], int segment[], int peak[], size_t length)
 {
-    FILE *wp = fopen("output.txt", "w");
     int left, right, i, new_value;
     char input[BUFFER_SIZE];
-    fscanf(fp, "%4s", input);
+    scanf("%4s", input);
     while(strcmp(input, "END") != 0) {
         if(strcmp(input, "PEAK") == 0) {
-            fscanf(fp, " %d %d", &left, &right);
-            fprintf(wp, "%d\n", fenwick_tree_query(tree, left, right));
+            scanf(" %d %d", &left, &right);
+            printf("%d\n", fenwick_tree_query(tree, left, right));
         } else if(strcmp(input, "UPD") == 0) {
-            fscanf(fp, " %d %d", &i, &new_value);
+            scanf(" %d %d", &i, &new_value);
             fenwick_tree_update(tree, segment, peak, i, new_value, length);
         } else {
             printf("\nInvalid command\n");
             return;
         }
-    fscanf(fp, "%4s", input);
+    scanf("%4s", input);
     }
-    fclose(wp);
 }
 
 
@@ -185,22 +201,20 @@ void clean_up(int tree[], int segment[], int peak[])
 
 int main()
 {
-    FILE *fp = fopen("input.txt", "r");
     int n;
-    fscanf(fp, "%d", &n);
+    scanf("%d", &n);
     int *tree = calloc(n, sizeof(int));
 
     int *segment = calloc(n, sizeof(int));
-    scan_segment(segment, n, fp);
+    scan_segment(segment, n);
     
     int *peak = calloc(n, sizeof(int));
     make_peak(peak, segment, n);
 
     fenwick_tree_build(tree, peak, n);
 
-    scan_queries(tree, segment, peak, n, fp);
+    scan_queries(tree, segment, peak, n);
 
-    fclose(fp);
     clean_up(tree, segment, peak);
     return 0;
 }
