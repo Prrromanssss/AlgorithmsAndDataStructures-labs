@@ -29,7 +29,7 @@ int query(int tree[], int i)
 }
 
 
-int build(int tree[], char *segment, int left, int right, int length)
+int build(int tree[], char *segment, int left, int right, size_t length)
 {
     int sum = 0, mid;
     int bound = min(right, length);
@@ -54,7 +54,7 @@ int fenwick_tree_query(int tree[], int left, int right)
 }
 
 
-void fenwick_tree_update(int tree[], int i, int add_elem, int length)
+void fenwick_tree_update(int tree[], int i, int add_elem, size_t length)
 {
     while(i < length) {
         tree[i] ^= add_elem;
@@ -64,7 +64,7 @@ void fenwick_tree_update(int tree[], int i, int add_elem, int length)
 
 
 void fenwick_tree_update_sequence(int tree[], char segment[], char *new_s,
-                                  int i, int length, int length_to_upd)
+                                  int i, size_t length, size_t length_to_upd)
 {
     int j = i;
     for(int i = j; i < length_to_upd; i++) {
@@ -73,7 +73,7 @@ void fenwick_tree_update_sequence(int tree[], char segment[], char *new_s,
 }
 
 
-void fenwick_tree_build(int tree[], char *segment, int length)
+void fenwick_tree_build(int tree[], char *segment, size_t length)
 {
     int right = pow(2, ceil(log2(length)));
     build(tree, segment, 0, right - 1, length);

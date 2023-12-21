@@ -47,7 +47,6 @@ int build(int tree[], int segment[], int left, int right, int length)
         sum += segment[right];
         tree[right] = sum;
     }
-
     return sum;
 }
 
@@ -61,12 +60,9 @@ void fenwick_tree_build(int tree[], int segment[], int length)
 
 int main()
 {
-    int n = 12;
+    int n = 10;
     int tree[n];
-    int segment[] = {5, 2, 3, 7, 0, 4, 2, 5, 1, 6, 9, 3};
+    int segment[] = {0, 0, 0, 0, 1, 0, 0, 1, 0, 1};
     fenwick_tree_build(tree, segment, n);
-    // for(int i = 0; i < n; i++) {
-    //     printf("%d ", tree[i]);
-    // }
-    printf("%d ", fenwick_tree_query(tree, 0, 6));
+    printf("%d", fenwick_tree_query(tree, 0, 8));
 }
