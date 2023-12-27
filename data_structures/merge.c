@@ -30,16 +30,11 @@ bool compare(int a, int b)
 }
 
 
-void swap(void *base, unsigned int i, unsigned int j, size_t width)
+void swap(PriorityQueue *pq, unsigned int i, unsigned int j)
 {
-    uint8_t *temp_pointer = malloc(width);
-    uint8_t *left = base, *right = base;
-    left += i * width;
-    right += j * width;
-    memcpy(temp_pointer, left, width);
-    memcpy(left, right, width);
-    memcpy(right, temp_pointer, width);
-    free(temp_pointer);
+    HeapNode *var_for_swapping = pq->heap[i];
+    pq->heap[i] = pq->heap[j];
+    pq->heap[j] = var_for_swapping;
 }
 
 
@@ -63,8 +58,9 @@ int parent_node(unsigned int i)
 }
 
 
-void init_heap_node(HeapNode *node, int index, int index_for_key, int length_of_value)
+void *init_heap_node(int index, int index_for_key, int length_of_value)
 {
+    HeapNode *node = malloc(sizeof(HeapNode));
     node->index = index;
     node->value = calloc(length_of_value, sizeof(int));
     for(int j = 0; j < length_of_value; j++) {
@@ -73,6 +69,7 @@ void init_heap_node(HeapNode *node, int index, int index_for_key, int length_of_
     node->index_for_key = index_for_key;
     node->key = node->value[node->index_for_key];;
     node->length_of_value = length_of_value;
+    return node;
 }
 
 
@@ -121,7 +118,7 @@ void insert(PriorityQueue *pq, HeapNode *node)
     pq->length++;
     pq->heap[i] = node;
     while(i > 0 && compare(pq->heap[i]->key, pq->heap[parent_node(i)]->key)) {
-        swap(pq->heap, parent_node(i), i, sizeof(HeapNode *));
+        swap(pq, parent_node(i), i);
         pq->heap[i]->index = i;
         i = parent_node(i);
     }
@@ -144,7 +141,7 @@ void heapify(PriorityQueue *pq, int i, int heap_size, size_t width,
         largest = right;
     }
     if(largest != i) {
-		swap(pq->heap, i, largest, width);
+		swap(pq, i, largest);
         pq->heap[i]->index = i;
         pq->heap[largest]->index = largest;
 		heapify(pq, largest, heap_size, width, compare);
@@ -226,8 +223,7 @@ int scan_lengths_of_arrays(int lengths_of_arrays[], size_t number_of_arrays)
 void insert_init_values_in_queue(PriorityQueue *pq, int lengths_of_arrays[], size_t number_of_arrays)
 {
     for(int i = 0; i < number_of_arrays; i++) {
-        HeapNode *node = malloc(sizeof(HeapNode));
-        init_heap_node(node, i, 0, lengths_of_arrays[i]);
+        HeapNode *node = init_heap_node(i, 0, lengths_of_arrays[i]);
         insert(pq, node);
     }
 
