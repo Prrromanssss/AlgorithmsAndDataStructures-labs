@@ -83,7 +83,7 @@ void clean_node(HeapNode *node)
 // Funtions to work with priority queue
 
 void init_priority_queue(PriorityQueue *pq, size_t length, 
-                        bool (*compare)(int a, int b))
+                         bool (*compare)(int a, int b))
 {
     pq->heap = calloc(length, sizeof(HeapNode *));
     pq->compare = compare;
