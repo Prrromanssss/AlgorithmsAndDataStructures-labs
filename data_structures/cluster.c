@@ -5,12 +5,16 @@
 #include <string.h>
 
 
+struct Task {
+    int time_from_turning_on;
+    int time_of_completion_the_task;
+};
+
+
 typedef struct {
     int index;
     int key;
-    int *value;
-    int index_for_key;
-    int length_of_value;
+    struct Task value;
 } HeapNode;
 
 
@@ -38,6 +42,12 @@ void swap(PriorityQueue *pq, unsigned int i, unsigned int j)
 }
 
 
+int max(int a, int b)
+{
+    return a > b ? a : b;
+}
+
+
 // Functions to work with nodes
 
 int left_node(unsigned int i)
@@ -58,25 +68,14 @@ int parent_node(unsigned int i)
 }
 
 
-void *init_heap_node(int index, int index_for_key, int length_of_value)
+void *init_heap_node(int index, int time_of_completion_the_task, int time_from_turning_on)
 {
+    struct Task value = {time_of_completion_the_task, time_from_turning_on};
     HeapNode *node = malloc(sizeof(HeapNode));
     node->index = index;
-    node->value = calloc(length_of_value, sizeof(int));
-    for(int j = 0; j < length_of_value; j++) {
-        scanf("%d", &(node->value[j]));
-    }
-    node->index_for_key = index_for_key;
-    node->key = node->value[node->index_for_key];;
-    node->length_of_value = length_of_value;
+    node->value = value;
+    node->key = value.time_of_completion_the_task + value.time_from_turning_on;
     return node;
-}
-
-
-void clean_node(HeapNode *node)
-{
-    free(node->value);
-    free(node);
 }
 
 
@@ -157,95 +156,55 @@ HeapNode *extract_max(PriorityQueue *pq)
     }
     HeapNode *max_node = pq->heap[0];
     pq->length--;
-    clean_node(pq->heap[0]);
     if(pq->length > 0) {
         pq->heap[0] = pq->heap[pq->length];
         pq->heap[0]->index = 0;
         heapify(pq, 0, pq->length, pq->compare);
     }
-    pq->heap[pq->length] = NULL;
     return max_node;
-}
-
-
-void decrease_key(PriorityQueue *pq, HeapNode *node, int new_key)
-{
-    int i = node->index;
-    node->key = new_key;
-    heapify(pq, i, pq->length, pq->compare);
-}
-
-
-void clean_priority_queue(PriorityQueue *pq)
-{
-    for(int i = 0; i < pq->capacity; i++) {
-        if(pq->heap[i] == NULL) {
-            continue;
-        }
-        free(pq->heap[i]->value);
-        free(pq->heap[i]);
-    }
-    free(pq->heap);
 }
 
 
 // Main algorithm
 
-void merge(PriorityQueue *pq, size_t length)
+int get_min_time(PriorityQueue *pq, size_t number_of_tasks, size_t number_of_nodes)
 {
-    for(int i = 0; i < length; i++) {
-        HeapNode *current_node = maximum(pq);
-        printf("%d ", current_node->key);
-        current_node->index_for_key++;
-        if(current_node->index_for_key == current_node->length_of_value) {
-            extract_max(pq);
+    int min_time = 0;
+    for(int i = 0; i < number_of_tasks; i++) {
+        int t1, t2;
+        scanf("%d %d", &t1, &t2);
+        HeapNode *node = init_heap_node(i, t1, t2);
+        if(pq->length != number_of_nodes) {
+            insert(pq, node);
+            min_time = max(min_time, node->key);
         } else {
-            decrease_key(pq, current_node, current_node->value[current_node->index_for_key]);
+            HeapNode *current_max_node = extract_max(pq);
+            node->value.time_from_turning_on = max(current_max_node->key, node->value.time_from_turning_on);
+            node->key = node->value.time_from_turning_on + node->value.time_of_completion_the_task;
+            insert(pq, node);
+            min_time = max(min_time, node->key);
+            free(current_max_node);
         }
     }
-
-}
-
-
-// Scanning functions
-
-int scan_lengths_of_arrays(int lengths_of_arrays[], size_t number_of_arrays)
-{
-    int total_length = 0;
-    for(int i = 0; i < number_of_arrays; i++) {
-        scanf("%d", &lengths_of_arrays[i]);
-        total_length += lengths_of_arrays[i];
+    while(!queue_empty(pq)) {
+        HeapNode *current_max_node = extract_max(pq);
+        min_time = max(min_time, current_max_node->key);
+        free(current_max_node);
     }
-    return total_length;
-}
-
-
-void insert_init_values_in_queue(PriorityQueue *pq, int lengths_of_arrays[], size_t number_of_arrays)
-{
-    for(int i = 0; i < number_of_arrays; i++) {
-        HeapNode *node = init_heap_node(i, 0, lengths_of_arrays[i]);
-        insert(pq, node);
-    }
-
+    return min_time;
 }
 
 
 int main()
 {
+    size_t number_of_nodes, number_of_tasks;
+    scanf("%zu %zu", &number_of_nodes, &number_of_tasks);
+
     PriorityQueue pq;
-    int number_of_arrays;
-    size_t total_length;
-    scanf("%d", &number_of_arrays);
+    init_priority_queue(&pq, number_of_nodes, compare);
 
-    init_priority_queue(&pq, number_of_arrays, compare);
+    printf("%d ", get_min_time(&pq, number_of_tasks, number_of_nodes));
 
-    int lengths_of_arrays[number_of_arrays];
-    total_length = scan_lengths_of_arrays(lengths_of_arrays, number_of_arrays);
-
-    insert_init_values_in_queue(&pq, lengths_of_arrays, number_of_arrays);
-
-    merge(&pq, total_length);
-
-    clean_priority_queue(&pq);
+    free(pq.heap);
     return 0;
 }
